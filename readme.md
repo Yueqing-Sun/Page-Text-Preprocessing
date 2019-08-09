@@ -29,15 +29,20 @@
 ```
 
 ## 三、实验过程及结果
+
 ### 3.1 网页的抓取和正文提取
+
 （1）网页抓取
 在本次实验中我尝试抓取了网易新闻、新浪新闻、搜狗新闻主页，由于缺少文本附件，最后选取了今日哈工大的网页，下面以今日哈工大为例，根据具体的网页说明爬取的过程。  
 分析网站的结构可以知道，普通新闻里很少有附件，一般都是公告公示里带有附件，所以从公告公示栏开始
 ![](pic/网页抓取.png)
+
 而且可以通过翻页爬取更多的网页
 ![](pic/网页抓取2.png)
+
 首先查看网站源码，找到相应的新闻链接，一个页面有20条新闻链接：
 ![](pic/网页抓取3.png)
+
 爬取所有的新闻链接：这里主要用到BeautifulSoup和requests库，Beautiful Soup是一个可以从HTML或XML文件中提取结构化数据的Python库，用requests库中的get方法向网页发送请求，将获取到的内容转换成BeautifulSoup格式，并将’lxml’作为解析器。
 可以使用soup.select通过直接子标签查找（’span > apan > a’）得到所有的链接，存到url集合中，这里需要注意得到的链接需要补全"http://today.hit.edu.cn"
 代码实现如下：
@@ -70,8 +75,10 @@ urls = ["http://today.hit.edu.cn/category/10?page={}".format(str(i)) for i in ra
 （2）提取网页标题
 网页源码中有两个地方会出现标题，一是<head>标签里
 ![](pic/提取网页标题1.png)  
+	
 二是，观察源码可以发现，标签<h3>为网页的标题
 ![](pic/提取网页标题2.png)  
+	
 可以指定属性查找标签，查找div标签下class为article-title-center的内容，取返回列表的第一项
 ```
 title_ul = soup.find_all('div', {"class": "article-title text-center"})
@@ -91,8 +98,10 @@ for m in range(0, len(content)):
 ```
 （4）提取网页中的附件
 ![](pic/附件.png)
+	
 附件存在于：
 <span class="file file--mime-application-msword file--x-office-document">标签下，可通过查找span标签下class为file--x-office-document的内容
+	
 `file_urls = soup.find_all('span', {"class": "file--x-office-document"})`
 选择a标签下的file[0].get_text()得到文件名，选择href得到文件的下载链接：
 ```
@@ -124,6 +133,7 @@ ff.write(json_str+'\n')
 ![](pic/结果.png)
 
 ### 3.2 分词处理、去停用词处理
+
 （1）pyltp安装
 Pyltp还不适用python3.7，换了python3.5之后下载了
 pyltp-0.2.1-cp35-cp35m-win_amd64.whl
