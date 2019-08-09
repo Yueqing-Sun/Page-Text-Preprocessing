@@ -73,10 +73,10 @@ urls = ["http://today.hit.edu.cn/category/10?page={}".format(str(i)) for i in ra
 我这里做的其实比较简单，因为爬取网页的特殊性，不存在重复的url，完整的考虑应该对url进行去重。
 
 （2）提取网页标题
-网页源码中有两个地方会出现标题，一是<head>标签里
+网页源码中有两个地方会出现标题，一是head标签里
 ![](pic/提取网页标题1.png)  
 	
-二是，观察源码可以发现，标签<h3>为网页的标题
+二是，观察源码可以发现，标签h3为网页的标题
 ![](pic/提取网页标题2.png)  
 	
 可以指定属性查找标签，查找div标签下class为article-title-center的内容，取返回列表的第一项
