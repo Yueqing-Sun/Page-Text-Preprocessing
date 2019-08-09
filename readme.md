@@ -85,8 +85,9 @@ title_ul = soup.find_all('div', {"class": "article-title text-center"})
 title=title_ul[0].get_text().strip()
 ```
 （3）提取网页正文
-今日哈工大的源码非常整洁，所有正文包含在<p>标签下
+今日哈工大的源码非常整洁，所有正文包含在p标签下
 ![](pic/正文1.png)
+
 可以首先选取所有的<p>标签，遍历返回的子节点列表，获取每个节点的文本
 ```
 content = soup.select('p')
@@ -96,6 +97,7 @@ for m in range(0, len(content)):
         text = text + con
     m += 1
 ```
+
 （4）提取网页中的附件
 ![](pic/附件.png)
 	
